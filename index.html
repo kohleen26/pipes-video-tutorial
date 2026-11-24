@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11183f">
+<title>PIPES | CSR Video Tutorial Library</title>
+<style>
+:root{--navy:#11183f;--purple:#5130d9;--cyan:#5ee7df;--ink:#11183e;--muted:#68708e}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 4%,#f3dcff 0,transparent 27%),radial-gradient(circle at 92% 14%,#d8f4ff 0,transparent 28%),#f8f8ff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+.shell{width:min(1160px,calc(100% - 28px));margin:20px auto 54px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 14px}
+.brand{font-size:12px;font-weight:950;letter-spacing:.18em;color:#3420a2}
+.tag{padding:8px 13px;border:1px solid #d9d0ff;border-radius:99px;background:#f0edff;color:#4c35ad;font-size:10px;font-weight:900;letter-spacing:.08em}
+.panel{overflow:hidden;border:1px solid #e1e2f0;border-radius:24px;background:#fff;box-shadow:0 22px 65px #17174720}
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:clamp(30px,6vw,66px);color:#fff;background:linear-gradient(125deg,#10183f 0%,#21145f 58%,#5130d9 100%)}
+.hero:before{content:"";position:absolute;z-index:-1;width:420px;height:420px;right:-120px;top:-190px;border:1px solid #a98cff70;border-radius:50%;box-shadow:0 0 0 35px #a98cff12,0 0 0 75px #a98cff0b}
+.eyebrow{font-size:11px;font-weight:950;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+h1{margin:17px 0 14px;font-size:clamp(44px,8vw,78px);line-height:.94;letter-spacing:-.065em}
+h1 span{color:var(--cyan)}
+.hero p{max-width:620px;margin:0;color:#e4e7ff;font-size:16px;line-height:1.7}
+.hero-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+.hero-meta span{padding:9px 13px;border:1px solid #ffffff38;border-radius:99px;background:#ffffff12;color:#f3f2ff;font-size:10px;font-weight:850;letter-spacing:.05em}
+.content{padding:clamp(20px,4vw,42px);background:linear-gradient(135deg,#f4faff,#fff8ff 55%,#f7fbff)}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.search-wrap{position:relative;flex:1 1 280px}
+.search-wrap:before{content:"⌕";position:absolute;left:15px;top:7px;color:#6c5acb;font-size:25px}
+.search{width:100%;padding:14px 16px 14px 43px;border:1.5px solid #d9dced;border-radius:14px;background:#fff;color:var(--ink);font:inherit;outline:none}
+.search:focus{border-color:#8451ff;box-shadow:0 0 0 4px #8451ff18}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1px solid #d9dced;border-radius:99px;padding:10px 13px;background:#fff;color:#535b7b;font-size:11px;font-weight:850;cursor:pointer}
+.filter.active{border-color:var(--purple);background:var(--purple);color:#fff;box-shadow:0 5px 14px #5130d930}
+.result-line{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 2px 24px;color:var(--muted);font-size:12px;font-weight:750}
+.section{margin:0 0 30px}
+.section-head{display:flex;align-items:center;gap:11px;margin:0 0 13px}
+.section-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,#e9e3ff,#dffbfa);font-size:18px}
+.section h2{margin:0;font-size:18px;letter-spacing:-.025em}
+.section-sub{margin:3px 0 0;color:var(--muted);font-size:11px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.topic{display:flex;align-items:center;gap:13px;min-width:0;padding:16px;border:1px solid #e0e2f0;border-radius:16px;background:#ffffffeb;box-shadow:0 5px 16px #25215a08;transition:transform .18s,border-color .18s,box-shadow .18s}
+.topic:not(.pending):hover{transform:translateY(-2px);border-color:#a99aff;box-shadow:0 10px 24px #3824a018}
+.play{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#5130d9,#a04cf0);color:white;font-size:16px;box-shadow:0 5px 13px #5130d933}
+.topic-copy{flex:1;min-width:0}
+.topic-title{margin:0;color:#171b46;font-size:13px;font-weight:850;line-height:1.45}
+.topic-note{margin:4px 0 0;color:#7a809b;font-size:10px}
+.topic-link{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;color:#5130d9;text-decoration:none;font-size:11px;font-weight:950;white-space:nowrap}
+.topic-link:hover{text-decoration:underline}
+.pending{background:#fafaff;border-style:dashed;box-shadow:none}
+.pending .play{background:#e9eaf4;color:#8a8fa9;box-shadow:none}
+.pending .topic-title{color:#646b88}
+.status{padding:6px 8px;border-radius:99px;background:#f0edff;color:#6553a9;font-size:9px;font-weight:900;white-space:nowrap}
+.empty{display:none;padding:34px 18px;text-align:center;border:1px dashed #c9cbe0;border-radius:16px;color:#737b98;background:#ffffffa8}
+.footer{padding:20px;text-align:center;color:#79809b;font-size:10px}
+.footer strong{color:#4432ae}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.top{align-items:flex-start}.hero{padding:34px 25px}.content{padding:22px 16px}.toolbar{align-items:stretch}.filters{width:100%}.filter{flex:1 1 auto}.topic{padding:14px}.topic-link{font-size:10px}}
+@media(max-width:390px){.tag{font-size:9px}.topic{gap:10px}.play{width:37px;height:37px;flex-basis:37px}.topic-link{white-space:normal;text-align:right}}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="top"><div class="brand">FOURAM MEDIA · LEARNING</div><div class="tag">CSR RESOURCE CENTER</div></div>
+<main class="panel">
+<header class="hero">
+<div class="eyebrow">Customer Service · Video Learning Hub</div>
+<h1>PIPES <span>VIDEO</span><br>TUTORIALS</h1>
+<p>Your quick-reference library for using Pipes. Choose a topic to open its step-by-step video tutorial and follow along whenever you need a refresher.</p>
+<div class="hero-meta"><span>ON-DEMAND LEARNING</span><span>QUICK TOPIC ACCESS</span><span>FOR THE CSR TEAM</span></div>
+</header>
+<section class="content">
+<div class="toolbar">
+<div class="search-wrap"><input class="search" id="search" type="search" placeholder="Search a topic, e.g. refund, address, subscription…" aria-label="Search tutorials"></div>
+<div class="filters" id="filters">
+<button class="filter active" data-filter="all">All topics</button><button class="filter" data-filter="Getting started">Getting started</button><button class="filter" data-filter="Order management">Orders</button><button class="filter" data-filter="Subscriptions">Subscriptions</button><button class="filter" data-filter="Tagging">Tagging</button>
+</div>
+</div>
+<div class="result-line"><span id="resultCount">22 topics</span><span>Click “Watch tutorial” to open the video ↗</span></div>
+<div id="sections">
+<section class="section" data-section="Getting started">
+<div class="section-head"><div class="section-icon">🚀</div><div><h2>Getting started</h2><p class="section-sub">Learn the basics and navigate an order</p></div></div>
+<div class="grid">
+<article class="topic pending" data-title="Logging in to Pipes" data-category="Getting started"><div class="play">↗</div><div class="topic-copy"><p class="topic-title">Logging in to Pipes</p><p class="topic-note">Video link was not included in the supplied spreadsheet</p></div><span class="status">Coming soon</span></article>
+<article class="topic" data-title="Introduction to Pipes" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Introduction to Pipes</p><p class="topic-note">A quick introduction to the platform</p></div><a class="topic-link" href="https://www.loom.com/share/036e6c49bbb2443691986a721a5525a3" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Searching and viewing an order" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Searching and viewing an order</p></div><a class="topic-link" href="https://www.loom.com/share/d094d0199ed54a57a2449b8f56d4c7d2" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Reading an order page" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Reading an order page</p></div><a class="topic-link" href="https://www.loom.com/share/3d6f6010075e4befa036e0eb13ef4853" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Updating customer contact information" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Updating customer contact information</p></div><a class="topic-link" href="https://www.loom.com/share/acff68fb099c43cd8c37ff998afc7946" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Updating shipment address" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Updating shipment address</p></div><a class="topic-link" href="https://www.loom.com/share/1883bb22e98d4157b0391b0bc08f4a14" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+</div></section>
+<section class="section" data-section="Order management">
+<div class="section-head"><div class="section-icon">📦</div><div><h2>Order management</h2><p class="section-sub">Refunds, cancellations, changes, holds and reshipments</p></div></div>
+<div class="grid">
+<article class="topic" data-title="Issuing a refund" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Issuing a refund</p></div><a class="topic-link" href="https://www.loom.com/share/29924605a27a44a4b869a4f8d90abc6c" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Cancelling and refunding an order" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Cancelling and refunding an order</p></div><a class="topic-link" href="https://www.loom.com/share/0368f6ea26f8414090fd97f5b7e097d7" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Cancelling Shipment (No refund)" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Cancelling Shipment (No refund)</p></div><a class="topic-link" href="https://www.loom.com/share/0850347ebbaa4bd3bd4a7e0262a5e777" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Changing an item" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Changing an item</p></div><a class="topic-link" href="https://www.loom.com/share/ab0cefad10154abe82b66abeb786ccc6" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Putting/Releasing holds" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Putting/Releasing holds</p></div><a class="topic-link" href="https://www.loom.com/share/66e2c472c74348508c3feb953939cc1e" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Adding Notes/ Pasting Ticket Url" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Adding Notes / Pasting Ticket URL</p></div><a class="topic-link" href="https://www.loom.com/share/8b559f52b2c14c71ae8e5a63f1685dbf" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Resending order confirmation" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Resending order confirmation</p></div><a class="topic-link" href="https://www.loom.com/share/40b3469fd55b488389ea608ceb09a7f9" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Creating a manual order (Sales) - New Order" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Creating a manual order (Sales) – New Order</p></div><a class="topic-link" href="https://www.loom.com/share/671db3cfa9054452a263a166e6a2c73c" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Reshipping an entire order or an item (same sku) - Reship items" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Reshipping an entire order or an item (same SKU) – Reship items</p></div><a class="topic-link" href="https://www.loom.com/share/47c1a0c145574450933ceebf283af334" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Reshipping missing item from multipacks (different sku)- New order from this one" data-category="Order management"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Reshipping a missing item from multipacks (different SKU) – New order from this one</p></div><a class="topic-link" href="https://www.loom.com/share/4107a10f24234e6583e999a4703e657a" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+</div></section>
+<section class="section" data-section="Subscriptions">
+<div class="section-head"><div class="section-icon">🔁</div><div><h2>Subscriptions</h2><p class="section-sub">Manage recurring orders, billing plans and subscription refunds</p></div></div>
+<div class="grid">
+<article class="topic" data-title="Cancelling a subscription" data-category="Subscriptions"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Cancelling a subscription</p></div><a class="topic-link" href="https://www.loom.com/share/9f0baff724d54c6ca48e6fa53ef4e350" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Pausing a Subscription" data-category="Subscriptions"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Pausing a subscription</p></div><a class="topic-link" href="https://www.loom.com/share/bd6a0fed0fe249dd8f2996fec9f9bc2a" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Changing shipment frequency (Billing Plan)" data-category="Subscriptions"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Changing shipment frequency (Billing Plan)</p></div><a class="topic-link" href="https://www.loom.com/share/bd6a0fed0fe249dd8f2996fec9f9bc2a" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Refunding a subscription" data-category="Subscriptions"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Refunding a subscription</p></div><a class="topic-link" href="https://www.loom.com/share/57c29ba20cb6413284c812df254bcbe6" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+<article class="topic" data-title="Updating address for future rebills(subscription)" data-category="Subscriptions"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Updating address for future rebills (subscription)</p></div><a class="topic-link" href="https://www.loom.com/share/67eb401023c94d28b6d69b9c2b85ec41" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
+</div></section>
+<section class="section" data-section="Tagging">
+<div class="section-head"><div class="section-icon">🏷️</div><div><h2>Tagging</h2><p class="section-sub">Use the right tags and follow the tagging flow</p></div></div>
+<div class="grid">
+<article class="topic pending" data-title="Adding tagging" data-category="Tagging"><div class="play">＋</div><div class="topic-copy"><p class="topic-title">Adding tagging</p><p class="topic-note">Video link marked “To follow” in the supplied spreadsheet</p></div><span class="status">Coming soon</span></article>
+<article class="topic pending" data-title="Tagging Guide and Flow" data-category="Tagging"><div class="play">＋</div><div class="topic-copy"><p class="topic-title">Tagging Guide and Flow</p><p class="topic-note">Video link marked “To follow” in the supplied spreadsheet</p></div><span class="status">Coming soon</span></article>
+</div></section>
+</div>
+<div class="empty" id="empty">No tutorials match your search. Try another keyword or choose “All topics”.</div>
+</section>
+</main>
+<footer class="footer">Built for <strong>FOURAM MEDIA · CSR Learning</strong> &nbsp;✦&nbsp; Keep learning, one process at a time.</footer>
+</div>
+<script>
+const search=document.getElementById('search'),filters=[...document.querySelectorAll('.filter')],topics=[...document.querySelectorAll('.topic')],sections=[...document.querySelectorAll('.section')];let active='all';
+function update(){const q=search.value.trim().toLowerCase();let visible=0;topics.forEach(card=>{const category=card.dataset.category,show=(active==='all'||category===active)&&(card.dataset.title.toLowerCase().includes(q)||category.toLowerCase().includes(q));card.style.display=show?'flex':'none';if(show)visible++});sections.forEach(section=>{section.style.display=[...section.querySelectorAll('.topic')].some(card=>card.style.display!=='none')?'block':'none'});document.getElementById('resultCount').textContent=`${visible} topic${visible===1?'':'s'}`;document.getElementById('empty').style.display=visible?'none':'block'}
+filters.forEach(btn=>btn.addEventListener('click',()=>{active=btn.dataset.filter;filters.forEach(x=>x.classList.toggle('active',x===btn));update()}));search.addEventListener('input',update);
+</script>
+</body>
+</html>
