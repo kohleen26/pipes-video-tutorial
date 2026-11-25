@@ -27,7 +27,7 @@ h1 span{color:var(--cyan)}
 .filters{display:flex;gap:8px;flex-wrap:wrap}
 .filter{border:1px solid #d9dced;border-radius:99px;padding:10px 13px;background:#fff;color:#535b7b;font-size:11px;font-weight:850;cursor:pointer}
 .filter.active{border-color:var(--purple);background:var(--purple);color:#fff;box-shadow:0 5px 14px #5130d930}
-.result-line{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 2px 24px;color:var(--muted);font-size:12px;font-weight:750}
+.instruction-banner{display:flex;align-items:center;gap:12px;margin:0 0 22px;padding:16px 18px;border:1px solid #c9c0ff;border-left:5px solid #5130d9;border-radius:14px;background:linear-gradient(100deg,#f0edff,#e8fbff);color:#33228d;font-size:13px;font-weight:850;line-height:1.55;box-shadow:0 6px 18px #3824a010}.instruction-icon{width:28px;height:28px;flex:0 0 28px;display:grid;place-items:center;border-radius:50%;background:#5130d9;color:white;font-size:16px;font-weight:950}.result-line{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 2px 24px;color:var(--muted);font-size:12px;font-weight:750}
 .section{margin:0 0 30px}
 .section-head{display:flex;align-items:center;gap:11px;margin:0 0 13px}
 .section-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,#e9e3ff,#dffbfa);font-size:18px}
@@ -70,12 +70,12 @@ h1 span{color:var(--cyan)}
 <button class="filter active" data-filter="all">All topics</button><button class="filter" data-filter="Getting started">Getting started</button><button class="filter" data-filter="Order management">Orders</button><button class="filter" data-filter="Subscriptions">Subscriptions</button><button class="filter" data-filter="Tagging">Tagging</button>
 </div>
 </div>
-<div class="result-line"><span id="resultCount">22 topics</span><span>Click a topic title to open its PIPES Manual guide · Click “Watch tutorial” to view the video ↗</span></div>
+<div class="result-line"><span id="resultCount">22 topics</span><span>Browse the topics below to access process guides and video walkthroughs.</span></div>
+<div class="instruction-banner"><span class="instruction-icon">ℹ</span><span>Click a topic title to open its PIPES Manual guide · Click “Watch tutorial” to view the video ↗</span></div>
 <div id="sections">
 <section class="section" data-section="Getting started">
 <div class="section-head"><div class="section-icon">🚀</div><div><h2>Getting started</h2><p class="section-sub">Learn the basics and navigate an order</p></div></div>
 <div class="grid">
-<article class="topic pending" data-title="Logging in to Pipes" data-category="Getting started"><div class="play">↗</div><div class="topic-copy"><p class="topic-title">Logging in to Pipes</p><p class="topic-note">Video link was not included in the supplied spreadsheet</p></div><span class="status">Coming soon</span></article>
 <article class="topic" data-title="Introduction to Pipes" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><p class="topic-title">Introduction to Pipes</p><p class="topic-note">A quick introduction to the platform</p></div><a class="topic-link" href="https://www.loom.com/share/036e6c49bbb2443691986a721a5525a3" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
 <article class="topic" data-title="Searching and viewing an order" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><a class="topic-title manual-link" href="https://docs.fourammedia.com/handbook/cs/find-an-order" target="_blank" rel="noopener noreferrer">Searching and viewing an order</a></div><a class="topic-link" href="https://www.loom.com/share/d094d0199ed54a57a2449b8f56d4c7d2" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
 <article class="topic" data-title="Reading an order page" data-category="Getting started"><div class="play">▶</div><div class="topic-copy"><a class="topic-title manual-link" href="https://docs.fourammedia.com/handbook/cs/read-an-order" target="_blank" rel="noopener noreferrer">Reading an order page</a></div><a class="topic-link" href="https://www.loom.com/share/3d6f6010075e4befa036e0eb13ef4853" target="_blank" rel="noopener noreferrer">Watch tutorial ↗</a></article>
@@ -115,7 +115,7 @@ h1 span{color:var(--cyan)}
 <div class="empty" id="empty">No tutorials match your search. Try another keyword or choose “All topics”.</div>
 </section>
 </main>
-<section class="assessment"><div class="assessment-kicker">NEXT STEP</div><h2>Ready to test your knowledge?</h2><p>Complete the PIPES skills assessment to evaluate your knowledge and proficiency.</p><a href="https://kohleen26.github.io/pipes-interactive-quiz/" target="_blank" rel="noopener noreferrer">Skills Assessment: PIPES Skills and Proficiency Evaluation ↗</a></section>
+<section class="assessment"><div class="assessment-kicker">NEXT STEP</div><h2>Ready to test your knowledge?</h2><p>Complete the PIPES skills assessment to evaluate your knowledge and proficiency.</p><a href="https://kohleen26.github.io/pipes-interactive-quiz/" target="_blank" rel="noopener noreferrer">PIPES Skills Assessment ↗</a></section>
 <footer class="footer">Built for <strong>FOURAM MEDIA · CSR Learning</strong> &nbsp;✦&nbsp; Keep learning, one process at a time.</footer>
 </div>
 <script>
